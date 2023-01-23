@@ -111,7 +111,7 @@ class Constants {
     static const uint32_t AC_PACKET_TIMEOUT_MIN;
 };
 
-const std::string Constants::AC_FIRMWARE_VERSION = "0.2.10";
+const std::string Constants::AC_FIRMWARE_VERSION = "fix:compressor-temperature (dev.1)";
 
 // custom fan modes
 const std::string Constants::MUTE = "mute";
@@ -330,7 +330,8 @@ struct packet_big_info_body_t {
 
     // байт 14 тела (байт 22 пакета)
     // https://github.com/GrKoR/AUX_HVAC_Protocol#packet_cmd_21_b22
-    uint8_t compressor_temperature_int;  // от режима не зависит, растет при включении инвертора; температура двигателя?
+    uint8_t compressor_temperature_int : 7; // температура компрессора, T - 0x20
+    bool reserv147 : 1;
 
     // байт 15 тела (байт 23 пакета)
     // https://github.com/GrKoR/AUX_HVAC_Protocol#packet_cmd_21_b23
